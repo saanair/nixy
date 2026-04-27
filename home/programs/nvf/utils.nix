@@ -33,7 +33,7 @@
     };
     git = {
       enable = true;
-      gitsigns.enable = true;
+      gitsigns.enable = false;
     };
     terminal.toggleterm = {
       enable = true;

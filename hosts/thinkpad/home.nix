@@ -9,7 +9,7 @@
     ../../home/programs/shell
     ../../home/programs/git
     ../../home/programs/git/lazygit.nix
-    ../../home/programs/git/signing.nix # CHANGEME: Change the key or remove this file
+ #  ../../home/programs/git/signing.nix # CHANGED: Change the key or remove this file
     ../../home/programs/spicetify
     ../../home/programs/thunar
     ../../home/programs/nixy
@@ -30,7 +30,7 @@
     ../../home/system/udiskie
 
     ./variables.nix # Mostly user-specific configuration
-    ./secrets # CHANGEME: You should probably remove this line, this is where I store my secrets
+ #  ./secrets # CHANGED: You should probably remove this line, this is where I store my secrets
   ];
 
   home = {
@@ -39,7 +39,7 @@
     file.".face" = {source = ./profile_picture.png;};
 
     sessionVariables = {
-      AQ_DRM_DEVICES = "/dev/dri/card2:/dev/dri/card1"; # CHANGEME: Related to the GPU
+      AQ_DRM_DEVICES = "/dev/dri/card1"; # CHANGED: Related to the GPU
     };
 
     # Don't touch this

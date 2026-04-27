@@ -4,7 +4,7 @@
     ./search.nix
     ./keybindings.nix
     ./settings.nix
-    ./userscripts.nix
+ #  ./userscripts.nix
   ];
 
   home.sessionVariables = {
