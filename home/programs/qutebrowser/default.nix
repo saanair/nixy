@@ -4,13 +4,13 @@
     ./search.nix
     ./keybindings.nix
     ./settings.nix
- #  ./userscripts.nix
+    #  ./userscripts.nix
   ];
 
-  home.sessionVariables = {
-    DEFAULT_BROWSER = "qutebrowser";
-    BROWSER = "qutebrowser";
-  };
+  # home.sessionVariables = {
+  #  DEFAULT_BROWSER = "qutebrowser";
+  #  BROWSER = "qutebrowser";
+  #};
 
   xdg.mimeApps.defaultApplications = {
     "text/html" = ["org.qutebrowser.qutebrowser.desktop"];

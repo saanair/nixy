@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  config,
+  inputs,
+  ...
+}: {
   imports = [
     # Programs
     ../../home/programs/brave
@@ -9,13 +13,15 @@
     ../../home/programs/shell
     ../../home/programs/git
     ../../home/programs/git/lazygit.nix
- #  ../../home/programs/git/signing.nix # CHANGED: Change the key or remove this file
+    #  ../../home/programs/git/signing.nix # CHANGED: Change the key or remove this file
     ../../home/programs/spicetify
     ../../home/programs/thunar
     ../../home/programs/nixy
     ../../home/programs/nightshift
     ../../home/programs/qutebrowser
     ../../home/programs/nix-utils
+
+    ../../home/programs/zen-browser
 
     ../../home/programs/group/basic-apps.nix
     ../../home/programs/group/cybersecurity.nix
@@ -24,13 +30,14 @@
 
     # System (Desktop environment like stuff)
     ../../home/system/hyprland
-    ../../home/system/caelestia-shell
+    #  ../../home/system/caelestia-shell
     ../../home/system/hyprpaper
     ../../home/system/mime
     ../../home/system/udiskie
+    # ../../home/system/ambxst
 
     ./variables.nix # Mostly user-specific configuration
- #  ./secrets # CHANGED: You should probably remove this line, this is where I store my secrets
+    #  ./secrets # CHANGED: You should probably remove this line, this is where I store my secrets
   ];
 
   home = {
