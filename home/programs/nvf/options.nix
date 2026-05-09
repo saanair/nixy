@@ -1,6 +1,6 @@
 {lib, ...}: {
   programs.nvf.settings.vim = {
-    viAlias = false;
+    viAlias = true;
     vimAlias = true;
     withNodeJs = true;
     # syntaxHighlighting = true;

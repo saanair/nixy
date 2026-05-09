@@ -21,7 +21,11 @@
     ../../home/programs/qutebrowser
     ../../home/programs/nix-utils
 
+    # These are mine
     ../../home/programs/zen-browser
+    ../../home/programs/anytype
+    ../../home/programs/rustdesk
+    ../../home/programs/zathura
 
     ../../home/programs/group/basic-apps.nix
     ../../home/programs/group/cybersecurity.nix
