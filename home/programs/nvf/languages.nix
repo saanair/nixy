@@ -3,6 +3,9 @@
   pkgs,
   ...
 }: {
+  home.packages = with pkgs; [
+    tree-sitter
+  ];
   programs.nvf.settings.vim = {
     diagnostics = {
       enable = true;
@@ -44,15 +47,22 @@
         typescript # in language settings only tsx gets enabled, not typescript
       ];
     };
+   #treesitter.context.enable = true;
     lsp = {
       enable = true;
       presets = {
         tailwindcss-language-server = {
           enable = true;
         };
+        harper = {
+          enable = true;
+        };
       };
+      # my stuff
+      nvim-docs-view.enable = true;
+      # end of my stuff
       trouble.enable = true;
-      lspSignature.enable = true;
+      lspSignature.enable = false;
       lspconfig.enable = true;
       formatOnSave = true;
       mappings.format = null;
@@ -91,7 +101,6 @@
       enableExtraDiagnostics = true;
       enableFormat = true;
       enableTreesitter = true;
-
       python = {
         enable = true;
         lsp = {
@@ -123,6 +132,55 @@
       html.enable = true;
       bash.enable = true;
       nix.enable = true;
+      # my stuff
+      clang.enable = true;
+      cmake.enable = true;
+      json.enable = true;
+      sql.enable = true;
+      java.enable = true;
+      kotlin.enable = true;
+      lua.enable = true;
+      typst.enable = true;
+      rust = {
+        enable = true;
+        lsp.enable = true;
+        extensions.crates-nvim.enable = true;
+      };
+      toml.enable = true;
+      xml.enable = true;
+      tex.enable = true;
+      vue.enable = true;
+      # less common languages
+      openscad.enable = false;
+      arduino.enable = false;
+      assembly.enable = false;
+      nu.enable = false;
+      csharp.enable = false;
+      julia.enable = false;
+      vala.enable = false;
+      scala.enable = false;
+      r.enable = false;
+      gleam.enable = false;
+      glsl.enable = false;
+      dart.enable = false;
+      ocaml.enable = false;
+      elixir.enable = false;
+      haskell.enable = false;
+      hcl.enable = false;
+      ruby.enable = false;
+      fsharp.enable = false;
+      just.enable = false;
+      make.enable = false;
+      qml.enable = false;
+      jinja.enable = false;
+      liquid.enable = false;
+      tera.enable = false;
+      twig.enable = false;
+      gettext.enable = false;
+      fluent.enable = false;
+      jq.enable = false;
+      nim.enable = false;
+      # end my stuff
     };
     formatter = {
       conform-nvim = {

@@ -26,6 +26,7 @@
     ../../home/programs/anytype
     ../../home/programs/rustdesk
     ../../home/programs/zathura
+    ../../home/programs/opentabletdriver
 
     ../../home/programs/group/basic-apps.nix
     ../../home/programs/group/cybersecurity.nix

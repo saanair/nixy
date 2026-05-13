@@ -14,6 +14,7 @@
       duckdb
       claude-code
       inputs.bun2nix.packages.${stdenv.hostPlatform.system}.default
+      lua
     ])
     ++ (with pkgs-stable; [
       docker

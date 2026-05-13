@@ -2,12 +2,12 @@
   programs.nvf.settings.vim = {
     utility = {
       oil-nvim.enable = true;
-      snacks-nvim = {
-        setupOpts = {
-          picker.enabled = true;
-          explorer.enabled = true;
-        };
-      };
+     #snacks-nvim = {
+     #  setupOpts = {
+     #    picker.enabled = true;
+     #    explorer.enabled = true;
+     #  };
+     #};
     };
     keymaps = [
       # Top Pickers & Explorer

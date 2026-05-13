@@ -15,6 +15,7 @@
     #  ../../nixos/omen.nix # CHANGED: For my laptop only, remove this (OMEN 16)
 
     ../../nixos/ambxst.nix
+    ../../nixos/open-tablet-driver.nix
 
     # You should let those lines as is
     ./hardware-configuration.nix

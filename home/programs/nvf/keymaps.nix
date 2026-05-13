@@ -7,6 +7,7 @@
         # TODO: registers
         register = {};
       };
+      cheatsheet.enable = true;
     };
     keymaps = [
       # General Mappings
