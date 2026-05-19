@@ -16,6 +16,7 @@
 
     ../../nixos/ambxst.nix
     ../../nixos/open-tablet-driver.nix
+    ../../nixos/nordvpn.nix
 
     # You should let those lines as is
     ./hardware-configuration.nix

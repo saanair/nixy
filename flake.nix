@@ -14,6 +14,7 @@
     sops-nix.url = "github:Mic92/sops-nix";
     nvf.url = "github:notashelf/nvf";
     bun2nix.url = "github:nix-community/bun2nix";
+    nordvpn-nixos.url = "github:morettimarco/nordvpn-nixos";
 
     nix-index-database = {
       url = "github:nix-community/nix-index-database";
@@ -89,6 +90,7 @@
             inputs.home-manager.nixosModules.home-manager
             inputs.stylix.nixosModules.stylix
             inputs.nix-index-database.nixosModules.default
+            inputs.nordvpn-nixos.nixosModules.default
             ./hosts/thinkpad/configuration.nix # CHANGED: change the path to match your host folder
           ];
         };

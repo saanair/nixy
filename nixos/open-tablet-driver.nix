@@ -1,8 +1,15 @@
-{ config, lib, pkgs, ... }:
-
 {
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   # Enable OpenTabletDriver
-  hardware.opentabletdriver.enable = true;
-  hardware.uinput.enable = true;
-  boot.kernelModules = [ "uinput" ];
+  hardware.opentabletdriver = {
+    enable = false;
+    daemon.enable = true;
+  };
+  #hardware.uinput.enable = true;
+  #boot.kernelModules = [ "uinput" ];
+  boot.kernelModules = ["wacom"];
 }
