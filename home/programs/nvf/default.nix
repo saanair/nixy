@@ -1,23 +1,33 @@
-# NVF is a Neovim configuration that provides a minimal setup with essential plugins and configurations.
 {
   inputs,
   pkgs,
+  config,
   ...
-}: {
-  imports = [
-    inputs.nvf.homeManagerModules.default
-    ./maximal.nix
-    #./options.nix
-    #./languages.nix
-    #./picker.nix
-    #./snacks.nix
-    #./keymaps.nix
-    #./utils.nix
-    #./mini.nix
-  ];
-
+}: let
+  c = config.lib.stylix.colors;
+in {
+  imports = [inputs.nvf.homeManagerModules.default];
   programs.nvf = {
     enable = true;
-    #settings.vim.lazy.enable = true;
+    settings = {
+      vim.luaConfigRC.hl-overrides = ''
+        local function apply_hl()
+          vim.api.nvim_set_hl(0, "MiniStarterHeader",   { fg = "#${c.base0D}", bold = true })
+          vim.api.nvim_set_hl(0, "SnacksPickerBorder",  { fg = "#${c.base0D}" })
+          vim.api.nvim_set_hl(0, "SnacksPickerTitle",   { fg = "#${c.base0D}", bold = true })
+        end
+        apply_hl()
+        vim.api.nvim_create_autocmd("ColorScheme", { pattern = "*", callback = apply_hl })
+      '';
+      imports = [
+        ./options.nix
+        ./languages.nix
+        ./picker.nix
+        ./snacks.nix
+        ./keymaps.nix
+        ./utils.nix
+        ./mini.nix
+      ];
+    };
   };
 }

@@ -1,151 +1,72 @@
 {pkgs, ...}: {
-  programs.nvf.settings.vim = {
+  vim = {
+    luaConfigRC.remove-todo-keymaps = ''
+      vim.keymap.del("n", "<leader>tdq")
+      vim.keymap.del("n", "<leader>tdt")
+    '';
     undoFile.enable = true;
-    utility = {
-      motion = {
-        flash-nvim.enable = true;
-       #hop.enable = true;
-        leap.enable = true;
-        precognition.enable = true;
-      };
-      outline.aerial-nvim.enable = true;
-      ccc.enable = false;
-      vim-wakatime.enable = false;
-      diffview-nvim.enable = true;
-      yanky-nvim .enable = false;
-      qmk-nvim.enable = false; # requires hardware specific options
-      icon-picker.enable = true;
-      surround.enable = true;
-      leetcode-nvim.enable = true;
-      multicursors.enable = true;
-      smart-splits.enable = true;
-      undotree.enable = true;
-      nvim-biscuits.enable = true;
-      grug-far-nvim.enable = true;
-
-      images = {
-        image-nvim.enable = false;
-        img-clip.enable = true;
-      };
+    utility.yazi-nvim = {
+      enable = true;
+      mappings.openYazi = "<leader>e";
     };
-    tabline.nvimBufferline.enable = true;
-    notes = {
-      neorg.enable = true;
-      orgmode.enable = false;
-      mind-nvim.enable = false;
-      todo-comments.enable = true;
+    notes.todo-comments.enable = true;
+    assistant.copilot = {
+      enable = true;
+      cmp.enable = true;
     };
-    assistant = {
-      chatgpt.enable = false;
-      copilot = {
-        enable = false;
-        cmp.enable = true;
-      };
-      codecompanion-nvim.enable = false;
-      avante-nvim.enable = true;
-    };
-    statusline.lualine.enable = true;
 
     autocomplete = {
       nvim-cmp = {
-        enable = false;
-        #sources = {
-        #  buffer = "[Buffer]";
-        #  path = "[Path]";
-        #};
-        #sourcePlugins = [
-        #  pkgs.vimPlugins.cmp-cmdline
-        #];
+        enable = true;
+        sources = {
+          buffer = "[Buffer]";
+          path = "[Path]";
+        };
+        sourcePlugins = [
+          pkgs.vimPlugins.cmp-cmdline
+        ];
       };
-      blink-cmp.enable = true;
     };
 
     snippets.luasnip.enable = true;
     ui = {
-      borders.enable = true;
       noice.enable = true;
       colorizer.enable = true;
-      modes-nvim.enable = false; # the theme looks terrible with catppuccin
-      illuminate.enable = true;
-      breadcrumbs = {
-        enable = true;
-        navbuddy.enable = true;
-      };
-      smartcolumn = {
-        enable = true;
-        setupOpts.custom_colorcolumn = {
-          # this is a freeform module, it's `buftype = int;` for configuring column position
-          nix = "110";
-          ruby = "120";
-          java = "130";
-          go = ["90" "130"];
-        };
-      };
-      fastaction.enable = true;
     };
-    git = {
-      enable = true;
-      gitsigns.enable = false;
-      gitsigns.codeActions.enable = false;
-      neogit.enable = true;
-    };
-    terminal.toggleterm = {
-      enable = true;
-      lazygit = {
-        enable = true;
-        mappings.open = "<leader>gl";
-      };
-    };
+
     visuals = {
       rainbow-delimiters.enable = true;
-      nvim-scrollbar = {
-        enable = true;
+    };
+
+    extraPlugins = {
+      sttr-nvim = {
+        package = pkgs.vimUtils.buildVimPlugin {
+          name = "sttr-nvim";
+          src = pkgs.fetchFromGitHub {
+            owner = "anotherhadi";
+            repo = "sttr.nvim";
+            rev = "b41f2f51372222e23efbe5df9d72391cd933d4d1";
+            hash = "sha256-JPv0NNNUUNPNJM5LHYjcmTvilbOKB3OxI2Q6wxVbTks=";
+          };
+        };
+        setup = ''
+          require("sttr").setup()
+        '';
       };
-      nvim-web-devicons.enable = true;
-      nvim-cursorline.enable = true;
-      cinnamon-nvim.enable = true;
-      fidget-nvim.enable = true;
-
-      highlight-undo.enable = true;
-      blink-indent.enable = true;
-      indent-blankline.enable = true;
-
-      # Fun
-      cellular-automaton.enable = true;
-    };
-
-    minimap = {
-      minimap-vim.enable = true;
-      codewindow.enable = false;
-    };
-
-    dashboard = {
-      dashboard-nvim.enable = false;
-      alpha.enable = true;
-    };
-
-    notify = {
-      nvim-notify.enable = true;
-    };
-
-    projects = {
-      project-nvim.enable = true;
-    };
-
-    session = {
-      nvim-session-manager.enable = false;
-    };
-
-    gestures = {
-      gesture-nvim.enable = false;
-    };
-
-    comments = {
-      comment-nvim.enable = true;
-    };
-
-    presence = {
-      neocord.enable = false;
+      jwt-tui-nvim = {
+        package = pkgs.vimUtils.buildVimPlugin {
+          name = "jwt-tui-nvim";
+          src = pkgs.fetchFromGitHub {
+            owner = "anotherhadi";
+            repo = "jwt-tui.nvim";
+            rev = "c5100cb2cdfaf333014076a1a5c4c6a778bf3983";
+            hash = "sha256-qnQYZuQwyWkezhuyOorM67KBtatUboubofuT9A6McJI=";
+          };
+        };
+        setup = ''
+          require("jwt-tui").setup()
+        '';
+      };
     };
   };
 }

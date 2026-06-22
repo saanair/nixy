@@ -17,6 +17,7 @@
 
       signal-desktop # Messaging app
       element-desktop # Messaging app
+      nps
     ])
     ++ (with pkgs; [
       affine

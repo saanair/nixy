@@ -1,22 +1,14 @@
 {
-  programs.nvf.settings.vim = {
+  vim = {
     globals.mapleader = " ";
-    binds = {
-      whichKey = {
-        enable = true;
-        # TODO: registers
-        register = {};
-      };
-      cheatsheet.enable = true;
-    };
+
     keymaps = [
-      # General Mappings
       {
         key = "s";
         mode = "n";
         silent = true;
-        action = "<cmd>lua require('flash').jump()<cr>";
-        desc = "Flash";
+        action = "<cmd>lua MiniJump2d.start(MiniJump2d.builtin_opts.single_character)<cr>";
+        desc = "Jump2d";
       }
       {
         key = "K";
@@ -33,52 +25,57 @@
         desc = "Next Buffer";
       }
 
-      # Disable Arrow Keys in Normal Mode and Middle click
+      # Format
       {
-        key = "<Up>";
+        key = "<leader>lf";
         mode = "n";
         silent = true;
-        action = "<Nop>";
-        desc = "Disable Up Arrow";
+        action = "<cmd>lua require('conform').format({ async = true, lsp_format = 'fallback' })<cr>";
+        desc = "Format file";
       }
+
+      # Terminal
       {
-        key = "<Down>";
+        key = "<leader>tt";
         mode = "n";
         silent = true;
-        action = "<Nop>";
-        desc = "Disable Down Arrow";
+        action = "<cmd>lua Snacks.terminal.toggle()<cr>";
+        desc = "Toggle terminal";
       }
       {
-        key = "<Left>";
+        key = "<leader>tf";
         mode = "n";
         silent = true;
-        action = "<Nop>";
-        desc = "Disable Left Arrow";
+        action = "<cmd>lua Snacks.terminal.toggle(nil, { style = 'float' })<cr>";
+        desc = "Toggle terminal (float)";
       }
       {
-        key = "<Right>";
+        key = "<leader>tg";
         mode = "n";
         silent = true;
-        action = "<Nop>";
-        desc = "Disable Right Arrow";
+        action = "<cmd>lua Snacks.lazygit()<cr>";
+        desc = "Lazygit";
       }
       {
-        key = "<MiddleMouse>";
-        mode = ["n" "i" "v"]; # Normal, Insert, Visual
-        action = "<nop>"; # No Operation
+        key = "<leader>ts";
+        mode = "v";
         silent = true;
+        action = ":<C-u>SttrTransform<CR>";
+        desc = "String Transform";
       }
       {
-        key = "<2-MiddleMouse>"; # Désactive aussi le double clic molette
-        mode = ["n" "i" "v"];
-        action = "<nop>";
+        key = "<leader>tj";
+        mode = "n";
         silent = true;
+        action = ":JwtTui<CR>";
+        desc = "JWT TUI";
       }
       {
-        key = "<3-MiddleMouse>"; # Désactive aussi le double clic molette
-        mode = ["n" "i" "v"];
-        action = "<nop>";
+        key = "<leader>tj";
+        mode = "v";
         silent = true;
+        action = ":<C-u>JwtTuiOpen<CR>";
+        desc = "JWT TUI";
       }
 
       # UI
@@ -139,27 +136,59 @@
         desc = "Hide tabline";
       }
 
-      # Windows
+      # Todos
       {
-        key = "<leader>ws";
+        key = "<leader>xt";
         mode = "n";
         silent = true;
-        action = "<cmd>split<cr>";
-        desc = "Split";
+        action = "<cmd>TodoTrouble<cr>";
+        desc = "Todo (Trouble)";
+      }
+
+      # Shell
+      {
+        key = "<leader>!";
+        mode = "n";
+        silent = true;
+        lua = true;
+        desc = "Insert command output";
+        action = ''
+          function()
+            local cmd = vim.fn.input("Command: ")
+            if cmd == "" then return end
+            local lines = vim.fn.systemlist(cmd)
+            while #lines > 0 and lines[#lines] == "" do
+              table.remove(lines)
+            end
+            if #lines == 0 then return end
+            vim.api.nvim_put(lines, "l", true, true)
+          end
+        '';
       }
       {
-        key = "<leader>wv";
-        mode = "n";
+        key = "<leader>!";
+        mode = "v";
         silent = true;
-        action = "<cmd>vsplit<cr>";
-        desc = "VSplit";
-      }
-      {
-        key = "<leader>wd";
-        mode = "n";
-        silent = true;
-        action = "<cmd>close<cr>";
-        desc = "Close";
+        lua = true;
+        desc = "Run command with selection";
+        action = ''
+          function()
+            local start_line = vim.fn.line("'<")
+            local end_line = vim.fn.line("'>")
+            local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, end_line, false)
+            local input_text = table.concat(lines, "\n")
+
+            local cmd = vim.fn.input("$ ")
+            if cmd == "" then return end
+
+            local result = vim.fn.system({"bash", "-c", cmd}, input_text)
+            local output = vim.split(result, "\n", { plain = true })
+            if output[#output] == "" then table.remove(output) end
+            if #output == 0 then return end
+
+            vim.api.nvim_buf_set_lines(0, start_line - 1, end_line, false, output)
+          end
+        '';
       }
 
       # QOL
@@ -208,19 +237,14 @@
         desc = "Move to right window";
       }
 
-      # Format
-      {
-        key = "<leader>lf";
-        mode = "n";
-        silent = true;
-        action = "<cmd>lua require('conform').format({ async = true, lsp_format = 'fallback' })<cr>";
-        desc = "Format file";
-      }
-
       # Save
       {
         key = "<C-s>";
-        mode = ["n" "i" "v"];
+        mode = [
+          "n"
+          "i"
+          "v"
+        ];
         silent = true;
         action = "<cmd>w<cr>";
         desc = "Save file";
@@ -229,10 +253,74 @@
       # Deactivate "esc"
       {
         key = "<Esc>";
-        mode = ["n" "i" "v"];
+        mode = [
+          "n"
+          "i"
+          "v"
+        ];
         silent = true;
         action = "<Nop>";
         desc = "Disable Escape";
+      }
+
+      # Disable Arrow Keys in Normal Mode and Middle click
+      {
+        key = "<Up>";
+        mode = "n";
+        silent = true;
+        action = "<Nop>";
+        desc = "Disable Up Arrow";
+      }
+      {
+        key = "<Down>";
+        mode = "n";
+        silent = true;
+        action = "<Nop>";
+        desc = "Disable Down Arrow";
+      }
+      {
+        key = "<Left>";
+        mode = "n";
+        silent = true;
+        action = "<Nop>";
+        desc = "Disable Left Arrow";
+      }
+      {
+        key = "<Right>";
+        mode = "n";
+        silent = true;
+        action = "<Nop>";
+        desc = "Disable Right Arrow";
+      }
+      {
+        key = "<MiddleMouse>";
+        mode = [
+          "n"
+          "i"
+          "v"
+        ];
+        action = "<nop>";
+        silent = true;
+      }
+      {
+        key = "<2-MiddleMouse>";
+        mode = [
+          "n"
+          "i"
+          "v"
+        ];
+        action = "<nop>";
+        silent = true;
+      }
+      {
+        key = "<3-MiddleMouse>";
+        mode = [
+          "n"
+          "i"
+          "v"
+        ];
+        action = "<nop>";
+        silent = true;
       }
     ];
   };

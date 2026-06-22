@@ -26,6 +26,7 @@
     ../../home/programs/anytype
     ../../home/programs/rustdesk
     ../../home/programs/zathura
+    ../../home/programs/vesktop
     #../../home/programs/opentabletdriver
     #../../home/programs/nordVPN
 
