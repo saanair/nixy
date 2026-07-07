@@ -29,6 +29,11 @@
   # FIXME: Make this an actual variable in variables.nix
   programs.ambxst.enable = true;
 
+  # FIXME: Figure out where to place the certificate line to make it more aesthetic
+  security.pki.certificateFiles = [
+    ./caddy-root-ca.crt
+  ];
+
   # Don't touch this
   system.stateVersion = "24.05";
 }

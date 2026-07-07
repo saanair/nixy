@@ -15,6 +15,10 @@
       claude-code
       inputs.bun2nix.packages.${stdenv.hostPlatform.system}.default
       lua
+      (python313Packages.euporie.overridePythonAttrs (old: {
+        propagatedBuildInputs = (old.propagatedBuildInputs or []) ++ [ python313Packages.asyncssh ];
+      }))
+      opencode
     ])
     ++ (with pkgs-stable; [
       docker
